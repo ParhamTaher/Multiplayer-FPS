@@ -6,9 +6,15 @@ using UnityEngine;
 public class PlayerMotor : MonoBehaviour {
     [SerializeField]
     private Camera cam;
+
+    [SerializeField]
+    private float cameraRotationLimit = 85f;
+
     private Vector3 vel = Vector3.zero;
     private Vector3 rot = Vector3.zero;
-    private Vector3 camRot = Vector3.zero;
+    private float camRotX = 0f;
+    private float currentCamRotation = 0f;
+    private Vector3 thrusterForce = Vector3.zero;
     private Rigidbody rb;
 
 	// Use this for initialization
@@ -38,10 +44,17 @@ public class PlayerMotor : MonoBehaviour {
 
     }
 
-    public void RotateCamera(Vector3 _camRot)
+    public void RotateCamera(float _camRotX)
     {
 
-        camRot = _camRot;
+        camRotX = _camRotX;
+
+    }
+
+    public void ApplyThruster(Vector3 _thrusterForce)
+    {
+
+        thrusterForce = _thrusterForce;
 
     }
 
@@ -63,6 +76,13 @@ public class PlayerMotor : MonoBehaviour {
 
         }
 
+        if (thrusterForce != Vector3.zero)
+        {
+
+            rb.AddForce(thrusterForce * Time.fixedDeltaTime, ForceMode.Acceleration);
+
+        }
+
     }
 
     public void PerformRotation()
@@ -72,8 +92,11 @@ public class PlayerMotor : MonoBehaviour {
         if (cam != null)
         {
 
-            cam.transform.Rotate(-camRot);
+            // cam.transform.Rotate(-camRot);
+            currentCamRotation -= camRotX;
+            currentCamRotation = Mathf.Clamp(currentCamRotation, -cameraRotationLimit, cameraRotationLimit);
 
+            cam.transform.localEulerAngles = new Vector3(currentCamRotation, 0f, 0f);
         }
 
     }
