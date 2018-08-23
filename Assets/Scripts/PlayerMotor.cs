@@ -32,8 +32,7 @@ public class PlayerMotor : MonoBehaviour {
     public void Move(Vector3 _vel)
     {
 
-        Debug.Log("here!");
-        vel = _vel;
+       vel = _vel;
 
     }
 

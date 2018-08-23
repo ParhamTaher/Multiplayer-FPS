@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 20377129038510508}
   - component: {fileID: 124653706893068058}
   - component: {fileID: 81040891841768054}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 33300997101739716}
   - component: {fileID: 23682690639090784}
   - component: {fileID: 65795268916658276}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,9 +64,11 @@ GameObject:
   - component: {fileID: 114743423883795008}
   - component: {fileID: 114045592784336930}
   - component: {fileID: 153585735822242850}
-  m_Layer: 0
+  - component: {fileID: 114211662364365162}
+  - component: {fileID: 114179259847729338}
+  m_Layer: 9
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,7 +83,7 @@ GameObject:
   - component: {fileID: 4041229950157784}
   - component: {fileID: 33689152207050632}
   - component: {fileID: 23383889469886068}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayerModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +101,7 @@ GameObject:
   - component: {fileID: 33180455109763092}
   - component: {fileID: 23787465650751992}
   - component: {fileID: 65682069982599956}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +119,7 @@ GameObject:
   - component: {fileID: 33394911072695616}
   - component: {fileID: 23823811860440416}
   - component: {fileID: 65149751629485236}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4748816175456128}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +149,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4387968448367576}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -582,6 +584,40 @@ MonoBehaviour:
   m_MovementThreshold: 0.001
   m_InterpolateRotation: 0.3
   m_InterpolateMovement: 0
+--- !u!114 &114179259847729338
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1831475380208256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9827030f71bf842a419ad183a578b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  disableOnDeath:
+  - {fileID: 114872590340342476}
+  - {fileID: 114211662364365162}
+--- !u!114 &114211662364365162
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1831475380208256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6525eb9e540a3e4488cc54b6620f0dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 20377129038510508}
+  mask:
+    serializedVersion: 2
+    m_Bits: 1335
+  weapon:
+    name: Pistol
+    damage: 25
+    range: 100
 --- !u!114 &114717611321196194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -594,6 +630,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 20377129038510508}
+  cameraRotationLimit: 85
 --- !u!114 &114743423883795008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -628,6 +665,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   lookSpeed: 3
+  thrusterForce: 1000
+  jointSpring: 20
+  jointMaxForce: 40
 --- !u!114 &114956875104927516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -644,6 +684,8 @@ MonoBehaviour:
   - {fileID: 114872590340342476}
   - {fileID: 20377129038510508}
   - {fileID: 81040891841768054}
+  - {fileID: 114211662364365162}
+  remoteLayerName: RemotePlayer
 --- !u!124 &124653706893068058
 Behaviour:
   m_ObjectHideFlags: 1
