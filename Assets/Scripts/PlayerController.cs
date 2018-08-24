@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(ConfigurableJoint))]
 [RequireComponent(typeof(PlayerMotor))]
 public class PlayerController : MonoBehaviour {
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour {
 
     private PlayerMotor motor;
     private ConfigurableJoint joint;
+    private Animator animator;
     
 
 	// Use this for initialization
@@ -30,6 +32,7 @@ public class PlayerController : MonoBehaviour {
 
         motor = GetComponent<PlayerMotor>();
         joint = GetComponent<ConfigurableJoint>();
+        animator = GetComponent<Animator>();
 
         SetJointSettings(jointSpring);
 
@@ -38,13 +41,15 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        float xMov = Input.GetAxisRaw("Horizontal");
-        float zMov = Input.GetAxisRaw("Vertical");
+        float xMov = Input.GetAxis("Horizontal");
+        float zMov = Input.GetAxis("Vertical");
 
         Vector3 movHorizontal = transform.right * xMov;
         Vector3 movVertical = transform.forward * zMov;
 
-        Vector3 vel = (movHorizontal + movVertical).normalized * speed;
+        Vector3 vel = (movHorizontal + movVertical) * speed;
+
+        animator.SetFloat("ForwardVelocity", zMov);
 
         motor.Move(vel);
 
