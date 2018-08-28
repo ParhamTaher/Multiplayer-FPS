@@ -11,7 +11,14 @@ public class PlayerShoot : NetworkBehaviour {
     [SerializeField]
     private LayerMask mask;
 
-    public PlayerWeapon weapon;
+    [SerializeField]
+    private PlayerWeapon weapon;
+
+    [SerializeField]
+    private GameObject weaponGFX;
+
+    [SerializeField]
+    private string weaponLayerName = "Weapon";
 
 	// Use this for initialization
 	void Start () {
@@ -23,6 +30,8 @@ public class PlayerShoot : NetworkBehaviour {
             this.enabled = false;
 
         }
+
+        weaponGFX.layer = LayerMask.NameToLayer(weaponLayerName);
 		
 	}
 	
