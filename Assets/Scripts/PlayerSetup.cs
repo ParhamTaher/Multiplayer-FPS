@@ -12,6 +12,16 @@ public class PlayerSetup : NetworkBehaviour {
     [SerializeField]
     private string remoteLayerName = "RemotePlayer";
 
+    [SerializeField]
+    private string dontDrawLayerName = "DontDraw";
+
+    [SerializeField]
+    GameObject playerGraphics;
+
+    [SerializeField]
+    GameObject playerUIPrefab;
+
+    private GameObject PlayerUIInstance;
     private Camera sceneCamera;
 
 	// Use this for initialization
@@ -33,9 +43,28 @@ public class PlayerSetup : NetworkBehaviour {
 
             }
 
+            SetLayerRecursively(playerGraphics, LayerMask.NameToLayer(dontDrawLayerName));
+
+            PlayerUIInstance = Instantiate(playerUIPrefab);
+            PlayerUIInstance.name = playerUIPrefab.name;
+
         }
 
         GetComponent<Player>().Setup();
+
+    }
+
+    void SetLayerRecursively(GameObject obj, int newLayer)
+    {
+
+        obj.layer = newLayer;
+
+        foreach (Transform child in obj.transform)
+        {
+
+            SetLayerRecursively(child.gameObject, newLayer);
+
+        }
 
     }
 
@@ -50,6 +79,8 @@ public class PlayerSetup : NetworkBehaviour {
 
     private void OnDisable()
     {
+
+        Destroy(PlayerUIInstance);
 
         if (sceneCamera != null)
         {
